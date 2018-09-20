@@ -51,7 +51,8 @@ Number          =       ({Digit})+
 WhiteSpace      =       ([\ \n\r\t\f])+ 
 Zero            =       0
 Integer         =       [1-9][0-9]*(\.){Zero} | {Zero} \. {Zero}
-Exponent        =       [eE] [\+ \-]? [0-9]+
+Exponent        =       [E] [\+ \-]? [0-9]+
+ScienNot        =       {Integer} {Exponent} 
 Float1          =       [0.9]+ \.
 
 
