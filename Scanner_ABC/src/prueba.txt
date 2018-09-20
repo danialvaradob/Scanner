@@ -1,12 +1,11 @@
-1777*
-#*1
-*#06#
-a123
-12345
-este es un
-ejemplo
-de
-analisis
-lexico
-con
-JFlex
+//AND //aasd
+A
+(*OR 
+or*)
+{asda}
+124.
+1.
+abc123
+123.0
+1.2
+0.5

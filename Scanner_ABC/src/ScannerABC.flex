@@ -1,5 +1,7 @@
 /* Secci�n de declaraciones de JFlex */
 %%
+%caseless 
+%ignorecase
 %public
 %class ScannerABC
 %{
@@ -40,6 +42,7 @@
  Espacio = " "
  SaltoDeLinea = \n|\r|\r\n
  
+NewLine         =       \n|\r|\r\n
 InputChar       =       [^\n\r]
 SpaceChar       =       [\ \t]
 LineChar        =       \n | \r | \r | \n     
@@ -53,44 +56,70 @@ Zero            =       0
 Integer         =       [1-9][0-9]*(\.){Zero} | {Zero} \. {Zero}
 Exponent        =       [E] [\+ \-]? [0-9]+
 ScienNot        =       {Integer} {Exponent} 
-Float1          =       [0.9]+ \.
+Float1          =       [0-9]+ \. [0-9]+
+FloatError1     =       [0-9]+ \. 
+FloatError2     =       (\. )
+LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
+BlockComment    =       \( \* (.|{NewLine})* \* \) | \{ (.|{NewLine})* \}
+LineComment     =       \/ \/ (.)*
 
 
 
 
-/* Finaliza expresiones regulares */
+
  
 %%
-/* Finaliza la secci�n de declaraciones de JFlex */
+
  
-/* Inicia secci�n de reglas */
- 
-// Cada regla est� formada por una {expresi�n} espacio {c�digo}
- 
-{Numero} {
- Token t = new Token(yytext(), "NUMERO");
+{LogicalOp} {
+ Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
+ this._existenTokens = true;
+ return t;
+}
+
+{Integer} {
+ Token t = new Token(yytext(), Types.INTEGER_NUMERIC_LITERAL);
  this._existenTokens = true;
  return t;
 }
  
-{Palabra} {
- Token t = new Token(yytext(), "PALABRA");
+{Identifier} {
+ Token t = new Token(yytext(), Types.IDENTIFIER);
  this._existenTokens = true;
  return t;
 }
  
-{Simbolo} {
- Token t = new Token(yytext(), "SIMBOLO");
+{Float1} {
+ Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
+{FloatError1} {
+ Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
+ this._existenTokens = true;
+ return t;
+}
+
+{FloatError2} {
+ Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
  this._existenTokens = true;
  return t;
 }
  
+
+{BlockComment} {
+ // Comentario de bloque 1
+}
+{LineComment} {
+ // Comentario de bloque 1
+}
 {Espacio} {
  // Ignorar cuando se ingrese un espacio
 }
  
 {SaltoDeLinea} {
- Token t = new Token("Enter", "NUEVA_LINEA");
+ /*Token t = new Token("Enter", Types.IDENTIFIER);
  this._existenTokens = true;
- return t;
+ return t;*/
 }
