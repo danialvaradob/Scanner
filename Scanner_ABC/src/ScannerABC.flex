@@ -1,12 +1,12 @@
-/* Sección de declaraciones de JFlex */
+/* Secciï¿½n de declaraciones de JFlex */
 %%
 %public
 %class ScannerABC
 %{
  
- /* Código personalizado */
+ /* Cï¿½digo personalizado */
  
- // Se agregó una propiedad para verificar si existen tokens pendientes
+ // Se agregï¿½ una propiedad para verificar si existen tokens pendientes
  private boolean _existenTokens = false;
  
  public boolean existenTokens(){
@@ -15,16 +15,16 @@
  
 %}
  
- /* Al utilizar esta instrucción, se le indica a JFlex que devuelva objetos del tipo TokenPersonalizado */
+ /* Al utilizar esta instrucciï¿½n, se le indica a JFlex que devuelva objetos del tipo TokenPersonalizado */
 %type Token
  
 %init{
- /* Código que se ejecutará en el constructor de la clase */
+ /* Cï¿½digo que se ejecutarï¿½ en el constructor de la clase */
 %init}
  
 %eof{
  
- /* Código a ejecutar al finalizar el análisis, en este caso cambiaremos el valor de una variable bandera */
+ /* Cï¿½digo a ejecutar al finalizar el anï¿½lisis, en este caso cambiaremos el valor de una variable bandera */
  this._existenTokens = false;
  
 %eof}
@@ -34,19 +34,37 @@
  Digito = [0-9]
  Numero = {Digito} {Digito}*
  Letra = [A-Za-z]
+ 
  Palabra = {Letra} {Letra}*
  Simbolo = "*"|"+"|"-"|"/"|"#"
  Espacio = " "
  SaltoDeLinea = \n|\r|\r\n
  
+InputChar       =       [^\n\r]
+SpaceChar       =       [\ \t]
+LineChar        =       \n | \r | \r | \n     
+Alpha           =       [A-Za-z_] 
+Digit           =       [0-9]
+AlphaNumeric    =       {Alpha}|{Digit}
+Identifier      =       {Alpha}({AlphaNumeric})*
+Number          =       ({Digit})+
+WhiteSpace      =       ([\ \n\r\t\f])+ 
+Zero            =       0
+Integer         =       [1-9][0-9]*(\.){Zero} | {Zero} \. {Zero}
+Exponent        =       [eE] [\+ \-]? [0-9]+
+Float1          =       [0.9]+ \.
+
+
+
+
 /* Finaliza expresiones regulares */
  
 %%
-/* Finaliza la sección de declaraciones de JFlex */
+/* Finaliza la secciï¿½n de declaraciones de JFlex */
  
-/* Inicia sección de reglas */
+/* Inicia secciï¿½n de reglas */
  
-// Cada regla está formada por una {expresión} espacio {código}
+// Cada regla estï¿½ formada por una {expresiï¿½n} espacio {cï¿½digo}
  
 {Numero} {
  Token t = new Token(yytext(), "NUMERO");
