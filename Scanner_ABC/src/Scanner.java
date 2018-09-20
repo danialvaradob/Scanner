@@ -19,7 +19,7 @@ public class Scanner {
     public static void main(String [ ] args){
 
         try{
-            File file = new File("test/src/prueba.txt");
+            File file = new File("src/prueba.txt");
             String path = file.getAbsolutePath();
            // Path p = Paths.get("prueba.txt");
             //Path folder = p.getParent();
