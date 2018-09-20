@@ -9,24 +9,25 @@
  *
  * @author CASA
  */
+
 public class Token {
-    String _token;
+    Types _token;
     String _lexema;
 
     public String getLexema(){
         return this._lexema;
     }
 
-    public String getToken(){
+    public Types getToken(){
         return this._token;
     }
 
-    public Token (String lexema, String token){
+    public Token (String lexema, Types token){
         this._lexema = lexema;
         this._token = token;
     }
 
     public String toString(){
-        return "Lexema: " + this._lexema + " Token: " + this._token + ";";
+        return "Lexema: " + this._lexema + " Token: " + this._token.toString() + ";";
     }
 }
