@@ -33,19 +33,14 @@
  
 /* Inicio de Expresiones regulares */
  
- Digito = [0-9]
- Numero = {Digito} {Digito}*
- Letra = [A-Za-z]
- 
- Palabra = {Letra} {Letra}*
- Simbolo = "*"|"+"|"-"|"/"|"#"
- Espacio = " "
- SaltoDeLinea = \n|\r|\r\n
+
  
 NewLine         =       \n|\r|\r\n
 InputChar       =       [^\n\r]
 SpaceChar       =       [\ \t]
-LineChar        =       \n | \r | \r | \n     
+LineChar        =       \n | \r | \r | \n  
+
+   
 Alpha           =       [A-Za-z_] 
 Digit           =       [0-9]
 AlphaNumeric    =       {Alpha}|{Digit}
@@ -84,17 +79,21 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
                         (\[)|(\])|(\:=)|(\.)|(\:)|(\+=)|(\-=)|(\*=)|
                         (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
 
+Symbols         =       (\!) | (\+)  |  (\-)  | (\*)  | (\@) | (\#) | (\%) | (\$)
+                        | (\^) | (\&) | (\() | (\)) | (\=)  
+
 String          =       \" ([^\"] |{NewLine})* \"
-Char          =       \" ([^\"] |{NewLine}) \"
+Char            =       \" ([^\"] |{NewLine}) \"
 
 NumericChar     =       \# {Number}
 
+Null            =       \0
 
 //Errors
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
-IdentifierError =       ({Digit}|{Char}|{String}|{ScienNot}|{Float1}|{NumericChar})+
-{Alpha}+
+IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
+                        {Alpha}+ | {Symbol}(.)
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
