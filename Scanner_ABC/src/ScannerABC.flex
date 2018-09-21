@@ -62,6 +62,13 @@ FloatError2     =       (\. )
 LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
 BlockComment    =       \( \* (.|{NewLine})* \* \) | \{ (.|{NewLine})* \}
 LineComment     =       \/ \/ (.)*
+ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
+                        (CONST)|(DO)|(DOWNTO)|(ELSE)|(END)|(FALSE)|(FILE)|
+                        (FOR)|(FORWARD)|(FUNCTION)|(GOTO)|(IF)|(IN)|(INLINE)|
+                        (INT)|(LABEL)|(LONGINT) |(NIL)|(OF)|
+                        (PACKED)|(PROCEDURE)|(PROGRAM)|(READ)|(REAL)|(RECORD)|
+                        (REPEAT)|(SET)|(SHORTINT)|(STRING)|(THEN)|(TO)|(TRUE)|
+                        (TYPE)|(UNTIL)|(VAR)|(WHILE)|(WITH)|(WRITE)
 
 
 
@@ -73,6 +80,12 @@ LineComment     =       \/ \/ (.)*
  
 {LogicalOp} {
  Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
+ this._existenTokens = true;
+ return t;
+}
+
+{ReservedWords} {
+ Token t = new Token(yytext(), Types.RESERVED);
  this._existenTokens = true;
  return t;
 }
