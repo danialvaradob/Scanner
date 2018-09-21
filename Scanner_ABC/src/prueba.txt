@@ -3,9 +3,12 @@ BooL//EAn
 (*OR 
 or*)
 {asda}
-124.
+124. hola<
 1.
+124
 abc123
+123NOT
+78SD78
 123.0
 --
 3.0E5

@@ -18,6 +18,8 @@ public enum Types {
     OTHER,
     
     
-    ERROR_FLOATING_POINT
+    ERROR_FLOATING_POINT,
+    ERROR_IDENTIFIER,
+    ERROR_INTEGER
     
 }

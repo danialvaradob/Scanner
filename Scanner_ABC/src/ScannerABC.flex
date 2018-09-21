@@ -55,8 +55,7 @@ WhiteSpace      =       ([\ \n\r\t\f])+
 Zero            =       0
 Integer         =       [1-9][0-9]*(\.){Zero} | {Zero} \. {Zero}
 Float1          =       [0-9]+ \. [0-9]+
-FloatError1     =       [0-9]+ \. 
-FloatError2     =       (\. )
+
 Exponent        =       [E] [\+ \-]? [0-9]+
 ScienNot        =       {Integer}|{Float1} {Exponent} 
 Float1          =       [0-9]+ \. [0-9]+
@@ -79,13 +78,25 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
                         (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
 
 
+//Errors
+FloatError1     =       [0-9]+ \. 
+FloatError2     =       (\. )
+IdentifierError =       {Digit}+{Alpha}+
+IntegerError    =       {Digit}+
+
+
 
 
 
  
 %%
 
- 
+{IdentifierError} {
+ Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
+ this._existenTokens = true;
+ return t;
+}
+
 {LogicalOp} {
  Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
  this._existenTokens = true;
@@ -137,6 +148,12 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
 
 {Operators} {
  Token t = new Token(yytext(), Types.OPERATOR);
+ this._existenTokens = true;
+ return t;
+}
+
+{IntegerError} {
+ Token t = new Token(yytext(), Types.ERROR_INTEGER);
  this._existenTokens = true;
  return t;
 }
