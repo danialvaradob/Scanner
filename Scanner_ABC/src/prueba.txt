@@ -1,5 +1,6 @@
 //AND //aasd
-BooLEAn
+2as
+BooL//EAn
 (*OR 
 or*)
 {asda}
@@ -7,5 +8,7 @@ or*)
 1.
 abc123
 123.0
+3.0E5
+1.5E4  
 1.2
 0.5

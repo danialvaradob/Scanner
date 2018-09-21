@@ -54,8 +54,11 @@ Number          =       ({Digit})+
 WhiteSpace      =       ([\ \n\r\t\f])+ 
 Zero            =       0
 Integer         =       [1-9][0-9]*(\.){Zero} | {Zero} \. {Zero}
+Float1          =       [0-9]+ \. [0-9]+
+FloatError1     =       [0-9]+ \. 
+FloatError2     =       (\. )
 Exponent        =       [E] [\+ \-]? [0-9]+
-ScienNot        =       {Integer} {Exponent} 
+ScienNot        =       {Integer}|{Float1} {Exponent} 
 Float1          =       [0-9]+ \. [0-9]+
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
@@ -95,6 +98,15 @@ ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
  this._existenTokens = true;
  return t;
 }
+
+{ScienNot} {
+ Token t = new Token(yytext(), Types.SCIENTIFIC_NOTATION_NUMERIC_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
+
+
  
 {Identifier} {
  Token t = new Token(yytext(), Types.IDENTIFIER);
