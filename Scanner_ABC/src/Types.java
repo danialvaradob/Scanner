@@ -20,6 +20,7 @@ public enum Types {
     
     ERROR_FLOATING_POINT,
     ERROR_IDENTIFIER,
-    ERROR_INTEGER
+    ERROR_INTEGER,
+    ERROR_STRING
     
 }

@@ -62,8 +62,10 @@ Float1          =       [0-9]+ \. [0-9]+
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
 LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
-BlockComment    =       \( \* (.|{NewLine})* \* \) | \{ (.|{NewLine})* \}
+
+BlockComment    =       \( \* ([^\}]|{NewLine})* \* \) | \{ ([^\}]|{NewLine})* \}
 LineComment     =       \/ \/ (.)*
+
 ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
                         (CONST)|(DO)|(DOWNTO)|(ELSE)|(END)|(FALSE)|(FILE)|
                         (FOR)|(FORWARD)|(FUNCTION)|(GOTO)|(IF)|(IN)|(INLINE)|
@@ -77,12 +79,15 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
                         (\[)|(\])|(\:=)|(\.)|(\:)|(\+=)|(\-=)|(\*=)|
                         (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
 
+String          =       \" ([^\"] |{NewLine})* \"
+
 
 //Errors
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
 IdentifierError =       {Digit}+{Alpha}+
 IntegerError    =       {Digit}+
+StringError     =       \" ([^\"] |{NewLine})* 
 
 
 
@@ -90,6 +95,17 @@ IntegerError    =       {Digit}+
 
  
 %%
+{String} {
+ Token t = new Token(yytext(), Types.STRING_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
+{StringError} {
+ Token t = new Token(yytext(), Types.ERROR_STRING);
+ this._existenTokens = true;
+ return t;
+}
 
 {IdentifierError} {
  Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
