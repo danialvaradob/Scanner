@@ -73,6 +73,11 @@ ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
                         (REPEAT)|(SET)|(SHORTINT)|(STRING)|(THEN)|(TO)|(TRUE)|
                         (TYPE)|(UNTIL)|(VAR)|(WHILE)|(WITH)|(WRITE)
 
+Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
+                        (\<>)|(\=)|(\+)|(\-)|(\*)|(\/)|(\()|(\))|
+                        (\[)|(\])|(\:=)|(\.)|(\:)|(\+=)|(\-=)|(\*=)|
+                        (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
+
 
 
 
@@ -105,8 +110,6 @@ ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
  return t;
 }
 
-
-
  
 {Identifier} {
  Token t = new Token(yytext(), Types.IDENTIFIER);
@@ -128,6 +131,12 @@ ReservedWords   =       (ARRAY)|(BEGIN)|(BOOLEAN)|(BYTE)|(CASE)|(CHAR)|
 
 {FloatError2} {
  Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
+ this._existenTokens = true;
+ return t;
+}
+
+{Operators} {
+ Token t = new Token(yytext(), Types.OPERATOR);
  this._existenTokens = true;
  return t;
 }

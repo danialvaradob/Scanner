@@ -62,7 +62,7 @@ public class ScannerABC {
     "\1\0\3\1\1\7\4\1\1\0\1\1\1\0\6\1"+
     "\2\0\2\1\2\0\1\1\1\6\4\1\1\0\3\1"+
     "\1\0\1\1\1\5\1\0\2\1\2\0\4\1\1\0"+
-    "\3\1\1\11\1\0\1\1\1\0\1\1\2\0\2\1"+
+    "\3\1\1\12\1\0\1\1\1\0\1\1\2\0\2\1"+
     "\1\0\2\1\1\0\4\1";
 
   private static int [] zzUnpackAction() {
@@ -840,51 +840,57 @@ public class ScannerABC {
  this._existenTokens = true;
  return t;
             }
-          case 10: break;
+          case 11: break;
           case 2: 
             { // Ignorar cuando se ingrese un espacio
             }
-          case 11: break;
+          case 12: break;
           case 3: 
             { /*Token t = new Token("Enter", Types.IDENTIFIER);
  this._existenTokens = true;
  return t;*/
             }
-          case 12: break;
+          case 13: break;
           case 4: 
             { Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
  this._existenTokens = true;
  return t;
             }
-          case 13: break;
+          case 14: break;
           case 5: 
             { // Comentario de bloque 1
             }
-          case 14: break;
+          case 15: break;
           case 6: 
             { Token t = new Token(yytext(), Types.RESERVED);
  this._existenTokens = true;
  return t;
             }
-          case 15: break;
+          case 16: break;
           case 7: 
             { Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
  this._existenTokens = true;
  return t;
             }
-          case 16: break;
+          case 17: break;
           case 8: 
             { Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL);
  this._existenTokens = true;
  return t;
             }
-          case 17: break;
+          case 18: break;
           case 9: 
+            { Token t = new Token(yytext(), Types.INTEGER_NUMERIC_LITERAL);
+ this._existenTokens = true;
+ return t;
+            }
+          case 19: break;
+          case 10: 
             { Token t = new Token(yytext(), Types.SCIENTIFIC_NOTATION_NUMERIC_LITERAL);
  this._existenTokens = true;
  return t;
             }
-          case 18: break;
+          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
