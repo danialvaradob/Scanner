@@ -58,9 +58,14 @@ Float1          =       [0-9]+ \. [0-9]+
 
 Exponent        =       [E] [\+ \-]? [0-9]+
 ScienNot        =       {Integer}|{Float1} {Exponent} 
-Float1          =       [0-9]+ \. [0-9]+
-FloatError1     =       [0-9]+ \. 
-FloatError2     =       (\. )
+Float1          =       [0-9]+ \. [0-9]+ {Exponent}?
+Float2          =       \. [0-9]+ {Exponent}?
+Float3          =       [0-9]+ \. {Exponent}?
+Float4          =       [0-9]+ {Exponent}
+Float           =       ( {Float1} | {Float2} | {Float3} | {Float4} ) [fFdD]? | 
+                        [0-9] + [fFDd] 
+
+
 LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
 BlockComment    =       \( \* (.|{NewLine})* \* \) | \{ (.|{NewLine})* \}
 LineComment     =       \/ \/ (.)*
