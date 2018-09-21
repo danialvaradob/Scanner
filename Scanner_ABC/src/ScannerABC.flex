@@ -80,21 +80,42 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
                         (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
 
 String          =       \" ([^\"] |{NewLine})* \"
+Char          =       \" ([^\"] |{NewLine}) \"
+
+NumericChar     =       \# {Number}
 
 
 //Errors
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
-IdentifierError =       {Digit}+{Alpha}+
+IdentifierError =       ({Digit}|{Char}|{String}|{ScienNot}|{Float1}|{NumericChar})+
+{Alpha}+
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
 
 
 
-
  
 %%
+{IdentifierError} {
+ Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
+ this._existenTokens = true;
+ return t;
+}
+
+{NumericChar} {
+ Token t = new Token(yytext(), Types.NUMERIC_CHAR_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
+{Char} {
+ Token t = new Token(yytext(), Types.CHAR_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
 {String} {
  Token t = new Token(yytext(), Types.STRING_LITERAL);
  this._existenTokens = true;
@@ -107,11 +128,9 @@ StringError     =       \" ([^\"] |{NewLine})*
  return t;
 }
 
-{IdentifierError} {
- Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
- this._existenTokens = true;
- return t;
-}
+
+
+
 
 {LogicalOp} {
  Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
