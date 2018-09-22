@@ -57,10 +57,8 @@ Exponent        =       [E] [\+ \-]? [0-9]+
 ScienNot        =       {Integer}|{Float1} {Exponent} 
 Float1          =       [0-9]+ \. [0-9]+ {Exponent}?
 Float2          =       \. [0-9]+ {Exponent}?
-Float3          =       [0-9]+ \. {Exponent}?
-Float4          =       [0-9]+ {Exponent}
-Float           =       ( {Float1} | {Float2} | {Float3} | {Float4} ) [fFdD]? | 
-                        [0-9] + [fFDd] 
+Float3          =       [0-9]+ \. {Exponent}? 
+Float           =       ( {Float1} | {Float2} | {Float3} | 
 
 
 LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
@@ -81,8 +79,8 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
                         (\[)|(\])|(\:=)|(\.)|(\:)|(\+=)|(\-=)|(\*=)|
                         (\/=)|(\>>)|(\<<)|(\<<=)|(\>>=)
 
-Symbols         =       (\!) | (\+)  |  (\-)  | (\*)  | (\@) | (\#) | (\%) | (\$)
-                        | (\^) | (\&) | (\() | (\)) | (\=)  
+Symbols         =       (\@) | (\#) | (\%) | (\$)
+                        | (\^) | (\&) | (\() | (\)) 
 
 String          =       \" ([^\"] |{NewLine})* \"
 Char            =       \" ([^\"] |{NewLine}) \"
@@ -90,14 +88,21 @@ Char            =       \" ([^\"] |{NewLine}) \"
 NumericChar     =       \# {Number}
 
 Null            =       \0
+EOF             =       <<EOF>>
+
+
 
 //Errors
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
 
 IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
+<<<<<<< HEAD
                         {Alpha}+ | {Symbols}(.)
 
+=======
+                        {Alpha}+ | {Symbol}(Idenfitifer)
+>>>>>>> d98a7eabc0667d9bbe9f277f7eb68f1dd35baaea
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
@@ -138,9 +143,6 @@ StringError     =       \" ([^\"] |{NewLine})*
 }
 
 
-
-
-
 {LogicalOp} {
  Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
  this._existenTokens = true;
@@ -172,8 +174,14 @@ StringError     =       \" ([^\"] |{NewLine})*
  return t;
 }
  
-{Float1} {
+{Float} {
  Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL);
+ this._existenTokens = true;
+ return t;
+}
+
+{EOF} {
+ Token t = new Token(yytext(), Types.EOF);
  this._existenTokens = true;
  return t;
 }
