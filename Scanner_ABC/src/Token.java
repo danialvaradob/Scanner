@@ -31,9 +31,15 @@ public class Token {
         this._lexema = lexema;
         this._token = token;
     }
+    
+    public Token (String lexema, Types token, int line){
+        this._lexema = lexema;
+        this._token = token;
+        this._line = line+1;
+    }
 
     public String toString(){
         return "Lexema: " + this._lexema + " Token: " + this._token.toString() +
-                " Token: " + this._line +";";
+                " Line: " + this._line +";";
     }
 }

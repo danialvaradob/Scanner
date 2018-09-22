@@ -110,69 +110,69 @@ StringError     =       \" ([^\"] |{NewLine})*
 %%
 {IdentifierError} {
 
- Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
+ Token t = new Token(yytext(), Types.ERROR_IDENTIFIER, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {NumericChar} {
- Token t = new Token(yytext(), Types.NUMERIC_CHAR_LITERAL);
+ Token t = new Token(yytext(), Types.NUMERIC_CHAR_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {Char} {
- Token t = new Token(yytext(), Types.CHAR_LITERAL);
+ Token t = new Token(yytext(), Types.CHAR_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {String} {
- Token t = new Token(yytext(), Types.STRING_LITERAL);
+ Token t = new Token(yytext(), Types.STRING_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {StringError} {
- Token t = new Token(yytext(), Types.ERROR_STRING);
+ Token t = new Token(yytext(), Types.ERROR_STRING, yyline);
  this._existenTokens = true;
  return t;
 }
 
 
 {LogicalOp} {
- Token t = new Token(yytext(), Types.LOGICAL_OPERATOR);
+ Token t = new Token(yytext(), Types.LOGICAL_OPERATOR, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {ReservedWords} {
- Token t = new Token(yytext(), Types.RESERVED);
+ Token t = new Token(yytext(), Types.RESERVED, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {Integer} {
- Token t = new Token(yytext(), Types.INTEGER_NUMERIC_LITERAL);
+ Token t = new Token(yytext(), Types.INTEGER_NUMERIC_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {ScienNot} {
- Token t = new Token(yytext(), Types.SCIENTIFIC_NOTATION_NUMERIC_LITERAL);
+ Token t = new Token(yytext(), Types.SCIENTIFIC_NOTATION_NUMERIC_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
 
  
 {Identifier} {
- Token t = new Token(yytext(), Types.IDENTIFIER);
+ Token t = new Token(yytext(), Types.IDENTIFIER, yyline);
  this._existenTokens = true;
  return t;
 }
  
 {Float} {
- Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL);
+ Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL, yyline);
  this._existenTokens = true;
  return t;
 }
@@ -184,26 +184,25 @@ StringError     =       \" ([^\"] |{NewLine})*
 }*/
 
 {FloatError1} {
- Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
+ Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {FloatError2} {
- Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
+ Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {Operators} {
- Token t = new Token(yytext(), Types.OPERATOR);
+ Token t = new Token(yytext(), Types.OPERATOR, yyline);
  this._existenTokens = true;
  return t;
 }
 
 {IntegerError} {
- Token t = new Token(yytext(), Types.ERROR_INTEGER);
- t.setLine(yyline-1);
+ Token t = new Token(yytext(), Types.ERROR_INTEGER, yyline);
  this._existenTokens = true;
  return t;
 }
