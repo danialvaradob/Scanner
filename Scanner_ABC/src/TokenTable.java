@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JTable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +21,8 @@ public class TokenTable {
                         "Linea"};
     
     private ArrayList<String> lexemas = new ArrayList<>();
+    
+    private JTable tokensTable;
     
 
     public TokenTable() {}
@@ -76,6 +79,11 @@ public class TokenTable {
             data[token][3] = " ";
             
         }
+        
+        tokensTable = new JTable(data, columnNames);
+        
+        
+        
     }
     
     /*
