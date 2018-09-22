@@ -1,6 +1,7 @@
 /* Secci�n de declaraciones de JFlex */
 %%
 %caseless 
+%line
 %ignorecase
 %public
 %class ScannerABC
@@ -33,7 +34,8 @@
  
 /* Inicio de Expresiones regulares */
  
-
+ Space = " "
+ NewLine = \n|\r|\r\n
  
 NewLine         =       \n|\r|\r\n
 InputChar       =       [^\n\r]
@@ -92,8 +94,10 @@ Null            =       \0
 //Errors
 FloatError1     =       [0-9]+ \. 
 FloatError2     =       (\. )
+
 IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
-                        {Alpha}+ | {Symbol}(.)
+                        {Alpha}+ | {Symbols}(.)
+
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
@@ -103,6 +107,7 @@ StringError     =       \" ([^\"] |{NewLine})*
  
 %%
 {IdentifierError} {
+
  Token t = new Token(yytext(), Types.ERROR_IDENTIFIER);
  this._existenTokens = true;
  return t;
@@ -193,6 +198,7 @@ StringError     =       \" ([^\"] |{NewLine})*
 
 {IntegerError} {
  Token t = new Token(yytext(), Types.ERROR_INTEGER);
+ t.setLine(yyline-1);
  this._existenTokens = true;
  return t;
 }
@@ -204,11 +210,11 @@ StringError     =       \" ([^\"] |{NewLine})*
 {LineComment} {
  // Comentario de bloque 1
 }
-{Espacio} {
+{Space} {
  // Ignorar cuando se ingrese un espacio
 }
  
-{SaltoDeLinea} {
+{NewLine} {
  /*Token t = new Token("Enter", Types.IDENTIFIER);
  this._existenTokens = true;
  return t;*/
