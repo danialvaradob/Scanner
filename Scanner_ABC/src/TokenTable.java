@@ -13,11 +13,15 @@ import java.util.ArrayList;
  */
 public class TokenTable {
     private static ArrayList<Token> tokens = new ArrayList<>();
-    private static ArrayList<Token> newTokens = new ArrayList<>();
     
-    //private ArrayList<String> ocurrences;
+    private static String[][] data;
+    private static String[] columnNames = {"Token",
+                        "Tipo de Token",
+                        "Linea"};
     
+    private ArrayList<String> lexemas = new ArrayList<>();
     
+
     public TokenTable() {}
     
     
@@ -31,13 +35,12 @@ public class TokenTable {
     }
     
     
-    
-    
-    private void createTable() {
+    private void addAllLineOccurrences() {
         int size = tokens.size();
         Token t1,t2;
         
-        
+        lexemas = new ArrayList<>();
+      
         // esta parte le cambia la cantidad de veces que aparece un token por linea
         // es decir si aparece while dos veces, cada token va a tener que en esa linea
         // tiene occurrences = 2 
@@ -51,10 +54,25 @@ public class TokenTable {
                 
                 // si se repite en la misma linea
                 if ((t2.getLine() == line)&& (t2.getLexema().equals(t1.getLexema()))) {
+                    
+                    if (!lexemas.contains(t2.getLexema())) {
+                        lexemas.add(t2.getLexema());
+                    }
+                    
                     t1.addOccurrence();
                 }               
             }            
         }
+    }
+    
+    private void createTable() {
+        for (int row = 0; row < 3; row ++) {
+            for (int col = 0; col < lexemas.size(); col++) {
+                data[row][col] = " ";
+            }
+        }
+
+        
     }
     
     /*
