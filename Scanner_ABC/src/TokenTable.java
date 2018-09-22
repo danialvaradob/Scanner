@@ -37,6 +37,10 @@ public class TokenTable {
         int size = tokens.size();
         Token t1,t2;
         
+        
+        // esta parte le cambia la cantidad de veces que aparece un token por linea
+        // es decir si aparece while dos veces, cada token va a tener que en esa linea
+        // tiene occurrences = 2 
         for (int i = 0; i < size; i++) {
             t1 = tokens.get(i);
             int line = t1.getLine();
@@ -51,24 +55,6 @@ public class TokenTable {
                 }               
             }            
         }
-        
-        for (int i = 0; i < size; i++) {
-            t1 = tokens.get(i);
-            int line = t1.getLine();
-            
-            // busca las repeticiones de ese mismo token
-            for (int j = 0; j < size; j++) {
-                t2 = tokens.get(j);
-                
-                // si se repite en la misma linea
-                if (t2.getLexema().equals(t1.getLexema())) {
-                    
-                }               
-            }            
-        }
-        
-        
-        
     }
     
     /*
