@@ -97,12 +97,9 @@ FloatError1     =       [0-9]+ \.
 FloatError2     =       (\. )
 
 IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
-<<<<<<< HEAD
-                        {Alpha}+ | {Symbols}(.)
 
-=======
                         {Alpha}+ | {Symbol}(Idenfitifer)
->>>>>>> d98a7eabc0667d9bbe9f277f7eb68f1dd35baaea
+
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
