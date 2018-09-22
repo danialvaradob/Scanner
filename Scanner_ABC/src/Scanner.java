@@ -10,12 +10,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  *
  * @author CASA
  */
 public class Scanner {
+    
+    // objeto tabla de tokens
+    public static TokenTable table;
+    
     public static void main(String [ ] args){
 
         try{
@@ -24,9 +29,8 @@ public class Scanner {
            // Path p = Paths.get("prueba.txt");
             //Path folder = p.getParent();
             String archivo = path;
+
             
-            /*String archivo = "D:/SegundoSemestre2018/Compiladores e Intérpretes/Proyectos/Proyecto1/"
-                    + "Scanner/Scanner_ABC/test/src/prueba.txt";*/
 
             // Se trata de leer el archivo y analizarlo en la clase que se ha creado con JFlex
             BufferedReader buffer = new BufferedReader(new FileReader(archivo));
@@ -36,7 +40,10 @@ public class Scanner {
 
                 // Obtener el token analizado y mostrar su información
                 Token token = analizadorJFlex.yylex();
-
+                
+                // Agrega el Token a la tabla de Tokens
+                table.addToken(token);
+                
                 if (!analizadorJFlex.existenTokens())
                 break;
 

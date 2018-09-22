@@ -11,35 +11,51 @@
  */
 
 public class Token {
-    Types _token;
-    String _lexema;
-    int _line = 0;
-
+    Types token;
+    String lexema;
+    int line = 0;
+    
+    int occurrences = 1;
+    
+    
+    
     public String getLexema(){
-        return this._lexema;
+        return this.lexema;
     }
 
     public Types getToken(){
-        return this._token;
+        return this.token;
     }
    
-    public void setLine(int l){
-        this._line = l;        
-    }
-
-    public Token (String lexema, Types token){
-        this._lexema = lexema;
-        this._token = token;
+    public void setLine(int _l){
+        this.line = _l;        
     }
     
-    public Token (String lexema, Types token, int line){
-        this._lexema = lexema;
-        this._token = token;
-        this._line = line+1;
+    public int getLine() {
+        return this.line;
     }
 
+    public Token (String _lexema, Types _token){
+        this.lexema = _lexema;
+        this.token = _token;
+    }
+    
+    public Token (String _lexema, Types _token, int _line){
+        this.lexema = _lexema;
+        this.token = _token;
+        this.line = _line+1;
+    }
+    
+    public void addOccurrence() {
+        this.occurrences++;
+    }
+
+    public void setOcurrences(int _occurrences) {
+        this.occurrences = _occurrences;
+    }
+    
     public String toString(){
-        return "Lexema: " + this._lexema + " Token: " + this._token.toString() +
-                " Line: " + this._line +";";
+        return "Lexema: " + this.lexema + " Token: " + this.token.toString() +
+                " Line: " + this.line +";";
     }
 }
