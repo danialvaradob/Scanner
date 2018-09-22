@@ -58,7 +58,7 @@ ScienNot        =       {Integer}|{Float1} {Exponent}
 Float1          =       [0-9]+ \. [0-9]+ {Exponent}?
 Float2          =       \. [0-9]+ {Exponent}?
 Float3          =       [0-9]+ \. {Exponent}? 
-Float           =       ( {Float1} | {Float2} | {Float3} | 
+Float           =       ( {Float1} | {Float2} | {Float3} )
 
 
 LogicalOp       =       (AND)|(OR)|(NOT)|(XOR)|(DIV)|(MOD)
@@ -88,7 +88,7 @@ Char            =       \" ([^\"] |{NewLine}) \"
 NumericChar     =       \# {Number}
 
 Null            =       \0
-EOF             =       <<EOF>>
+//EOF             =       <<EOF>>
 
 
 
@@ -98,7 +98,7 @@ FloatError2     =       (\. )
 
 IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
 
-                        {Alpha}+ | {Symbol}(Idenfitifer)
+                        {Alpha}+ | {Symbols}(Idenfitifer)
 
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
@@ -177,11 +177,11 @@ StringError     =       \" ([^\"] |{NewLine})*
  return t;
 }
 
-{EOF} {
+/*{EOF} {
  Token t = new Token(yytext(), Types.EOF);
  this._existenTokens = true;
  return t;
-}
+}*/
 
 {FloatError1} {
  Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT);
