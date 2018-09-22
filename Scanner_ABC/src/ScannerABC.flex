@@ -82,6 +82,8 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
 Symbols         =       (\@) | (\#) | (\%) | (\$)
                         | (\^) | (\&) | (\() | (\)) 
 
+SpecialSymbols  =       (\ñ)|(\&)|(\!)|(\*)
+
 String          =       \" ([^\"] |{NewLine})* \"
 Char            =       \" ([^\"] |{NewLine}) \"
 
@@ -94,20 +96,45 @@ Null            =       \0
 
 //Errors
 FloatError1     =       [0-9]+ \. 
-FloatError2     =       (\. )
+FloatError2     =       (\. {Number})
 
-IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | {NumericChar})+
+ExponentError        =       [E] [\+ \-]? Float1
+ScienNotError        =       {Integer}|{Float1} [\E] {Digit}  [\.] \{Digit} ]
+
+
+
+IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} | 
+                        {NumericChar} | {Symbols})+
 
                         {Alpha}+ | {Symbols}(Idenfitifer)
 
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
+InvalidCharacter =      {SpecialSymbols}
+
+CommentError    =       \( \* ([^\*)]|{NewLine})* | \{ ([^\}]|{NewLine})*
+
 
 
 
  
 %%
+{CommentError} {
+
+ Token t = new Token(yytext(), Types.ERROR_COMMENT, yyline);
+ this._existenTokens = true;
+ return t;
+}
+
+{SpecialSymbols} {
+
+ Token t = new Token(yytext(), Types.ERROR_INVALID_CHARACTER, yyline);
+ this._existenTokens = true;
+ return t;
+}
+
+
 {IdentifierError} {
 
  Token t = new Token(yytext(), Types.ERROR_IDENTIFIER, yyline);
@@ -158,6 +185,13 @@ StringError     =       \" ([^\"] |{NewLine})*
  return t;
 }
 
+
+{ScienNotError} {
+ Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT, yyline);
+ this._existenTokens = true;
+ return t;
+}
+
 {ScienNot} {
  Token t = new Token(yytext(), Types.SCIENTIFIC_NOTATION_NUMERIC_LITERAL, yyline);
  this._existenTokens = true;
@@ -171,17 +205,6 @@ StringError     =       \" ([^\"] |{NewLine})*
  return t;
 }
  
-{Float} {
- Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL, yyline);
- this._existenTokens = true;
- return t;
-}
-
-/*{EOF} {
- Token t = new Token(yytext(), Types.EOF);
- this._existenTokens = true;
- return t;
-}*/
 
 {FloatError1} {
  Token t = new Token(yytext(), Types.ERROR_FLOATING_POINT, yyline);
@@ -194,6 +217,20 @@ StringError     =       \" ([^\"] |{NewLine})*
  this._existenTokens = true;
  return t;
 }
+
+{Float} {
+ Token t = new Token(yytext(), Types.FLOATING_POINT_NUMERIC_LITERAL, yyline);
+ this._existenTokens = true;
+ return t;
+}
+
+/*{EOF} {
+ Token t = new Token(yytext(), Types.EOF);
+ this._existenTokens = true;
+ return t;
+}*/
+
+
 
 {Operators} {
  Token t = new Token(yytext(), Types.OPERATOR, yyline);

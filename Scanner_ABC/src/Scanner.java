@@ -19,12 +19,12 @@ import java.util.ArrayList;
 public class Scanner {
     
     // objeto tabla de tokens
-    public static TokenTable table;
+    public static TokenTable table = new TokenTable();
     
     public static void main(String [ ] args){
 
         try{
-            File file = new File("src/prueba.txt");
+            File file = new File("src/errores.txt");
             String path = file.getAbsolutePath();
            // Path p = Paths.get("prueba.txt");
             //Path folder = p.getParent();
