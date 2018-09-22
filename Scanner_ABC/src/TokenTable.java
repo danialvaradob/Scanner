@@ -66,13 +66,16 @@ public class TokenTable {
     }
     
     private void createTable() {
-        for (int row = 0; row < 3; row ++) {
-            for (int col = 0; col < lexemas.size(); col++) {
-                data[row][col] = " ";
-            }
+        for (int token = 0; token < lexemas.size(); token ++) {
+            
+            // lexema
+            data[token][1] = " ";
+            // tipo de token (type)
+            data[token][2] = " ";
+            // apareiciones en las lineas
+            data[token][3] = " ";
+            
         }
-
-        
     }
     
     /*
