@@ -26,6 +26,10 @@ public class Token {
     public Types getToken(){
         return this.token;
     }
+    
+    public void setType(Types t){
+        this.token = t;
+    }
    
     public void setLine(int _l){
         this.line = _l;        
