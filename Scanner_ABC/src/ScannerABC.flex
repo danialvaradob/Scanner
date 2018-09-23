@@ -81,8 +81,10 @@ Operators       =       (\,)|(\;)|(\++)|(\--)|(\>=)|(\>)|(\<=)|(\<)|
 
 Symbols         =       (\@) | (\#) | (\%) | (\$)
                         | (\^) | (\&) | (\() | (\)) 
+                        | (\º) | (\á) | (\!) | (\¿)
+                        | (\¡) | (\*)
 
-SpecialSymbols  =       (\ñ)|(\&)|(\!)|(\*)
+
 
 String          =       \" ([^\"] |{NewLine})* \"
 Char            =       \" ([^\"] |{NewLine}) \"
@@ -111,9 +113,11 @@ IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} |
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
-InvalidCharacter =      {SpecialSymbols}
+InvalidCharacter =      ({Alpha})*({Symbols})+({AlphaNumeric})*
 
 CommentError    =       \( \* ([^\*)]|{NewLine})* | \{ ([^\}]|{NewLine})*
+
+NoMatch         =       (.)
 
 
 
@@ -127,7 +131,7 @@ CommentError    =       \( \* ([^\*)]|{NewLine})* | \{ ([^\}]|{NewLine})*
  return t;
 }
 
-{SpecialSymbols} {
+{InvalidCharacter} {
 
  Token t = new Token(yytext(), Types.ERROR_INVALID_CHARACTER, yyline);
  this._existenTokens = true;
@@ -259,4 +263,10 @@ CommentError    =       \( \* ([^\*)]|{NewLine})* | \{ ([^\}]|{NewLine})*
  /*Token t = new Token("Enter", Types.IDENTIFIER);
  this._existenTokens = true;
  return t;*/
+}
+
+{NoMatch} {
+ Token t = new Token(yytext(), Types.ERROR_INVALID_CHARACTER, yyline);
+ this._existenTokens = true;
+ return t;
 }
