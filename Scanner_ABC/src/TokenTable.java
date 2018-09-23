@@ -103,8 +103,9 @@ public class TokenTable {
     private void elimRepeatedTokens() {
         
         Token t1,t2;
-        boolean bandera = false;
+        
         for (int i = 0; i < tokens.size(); i++) {
+            boolean bandera = true;
             t1 = tokens.get(i);
             if (i == 0) {this.noRepeatedTokens.add(t1);}     
             // busca las repeticiones de ese mismo token
@@ -113,30 +114,21 @@ public class TokenTable {
             for (int j = 0; j < this.noRepeatedTokens.size(); j++) {
                 t2 = noRepeatedTokens.get(j);
                 
-                if (!(noRepeatedTokens.contains(t1))) {
-                   
-                    String lex1 = toUpperCase(t1.getLexema());
-                    String lex2 = toUpperCase(t2.getLexema());
-                    
-                    if (!toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema()))) {
-                        bandera = true; 
-                    } else if (!(t1.getLine() == t2.getLine())){
-                        if (!toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema()))) {
-                            this.noRepeatedTokens.add(t1); 
-                        }
-                        
-                    }
-                    
-                    
-                
+                if (noRepeatedTokens.contains(t1)) {   
+                    bandera = false;
                 }
-            }            
+               if ((t1.getLine() == t2.getLine()) && (toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema()))) ) {
+                    bandera = false;
+                }
+            }
+            
+            
+            if (bandera) {
+                this.noRepeatedTokens.add(t1);
+                
+            }
         }
-        
-        
-        
-        
-    
+               
     }
     
     //CAMBIAR A PRIVADO
@@ -198,6 +190,15 @@ public class TokenTable {
                             occrr += "," + t2.getLine();
                         }              
                     }
+                    // lexema
+            data[token][1] = lexema;
+            // tipo de token (type)
+            data[token][2] = type;
+            // apareiciones en las lineas
+            data[token][3] = occrr;
+            
+                    
+                    
                 }
                 
                 
@@ -206,12 +207,6 @@ public class TokenTable {
             // recorre la lista de toknes
             
             
-            // lexema
-            data[token][1] = lexema;
-            // tipo de token (type)
-            data[token][2] = type;
-            // apareiciones en las lineas
-            data[token][3] = occrr;
             
         }
         
