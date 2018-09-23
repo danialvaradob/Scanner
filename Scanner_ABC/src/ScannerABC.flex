@@ -39,7 +39,7 @@
  
 NewLine         =       \n|\r|\r\n
 InputChar       =       [^\n\r]
-SpaceChar       =       [\ \t]
+SpaceChar       =       [\ | \t]*
 LineChar        =       \n | \r | \r | \n  
 
    
@@ -84,6 +84,11 @@ Symbols         =       (\@) | (\#) | (\%) | (\$)
                         | (\º) | (\á) | (\!) | (\¿)
                         | (\¡) | (\*)
 
+InvalidSymbols  =       (\@) | (\%) | (\$)
+                        | (\^) | (\&)
+                        | (\º) | (\á) | (\!) | (\¿)
+                        | (\¡)
+
 
 
 String          =       \" ([^\"] |{NewLine})* \"
@@ -113,7 +118,7 @@ IdentifierError =       ({Digit}|{Char} | {String} | {ScienNot} | {Float1} |
 IntegerError    =       {Digit}+
 StringError     =       \" ([^\"] |{NewLine})* 
 
-InvalidCharacter =      ({Alpha})*({Symbols})+({AlphaNumeric})*
+InvalidCharacter =      ({Alpha})*({InvalidSymbols})+({AlphaNumeric})*
 
 CommentError    =       \( \* ([^\*)]|{NewLine})* | \{ ([^\}]|{NewLine})*
 
@@ -124,6 +129,11 @@ NoMatch         =       (.)
 
  
 %%
+{SpaceChar} {
+    //Espacios y tabuladores
+}
+
+
 {CommentError} {
 
  Token t = new Token(yytext(), Types.ERROR_COMMENT, yyline);

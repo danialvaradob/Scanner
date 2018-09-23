@@ -24,7 +24,7 @@ public class Scanner {
     public static void main(String [ ] args){
 
         try{
-            File file = new File("src/errores.txt");
+            File file = new File("src/simbolos.txt");
             String path = file.getAbsolutePath();
            // Path p = Paths.get("prueba.txt");
             //Path folder = p.getParent();
