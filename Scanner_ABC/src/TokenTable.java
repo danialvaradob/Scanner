@@ -28,7 +28,7 @@ public class TokenTable {
     
     private ArrayList<String> lexemas = new ArrayList<>();
     
-    private JTable tokensTable;
+    public  JTable tokensTable;
     
 
 
@@ -151,6 +151,8 @@ public class TokenTable {
         
         data = new String[lexemas.size()][3];
         
+        
+        
         for (int token = 0; token < lexemas.size(); token ++) {
             
             for (int i = 0; i < this.noRepeatedTokens.size(); i++) {
@@ -182,21 +184,29 @@ public class TokenTable {
                         }              
                     }
                     String prueba = "prueba";
-                  
- 
-                }
-            }
+                  //PRINTS IN CONSOLE
+                   
+                   System.out.println(lexema + "  |  " + type + "   |   " + occrr);
              // lexema
                    data[token][0] = lexema;
                    // tipo de token (type)
                    data[token][1] = type;
                    // apareiciones en las lineas
                    data[token][2] = occrr;
+                    
+                    
+ 
+                }
+            }
             
+                
+            
+                   
+                   
+                   
+                   
         }
         tokensTable = new JTable(data, columnNames);
-        TextTable tt = new TextTable(columnNames, data);                                                         
-        tt.printTable(); 
 
     }
     
@@ -225,7 +235,7 @@ Object[][] data = {
     
     public void printTable() throws PrinterException {
         createTable();
-        System.out.print( this.tokensTable.toString());
+        //System.out.print( this.tokensTable.toString());
     }
     
 }
