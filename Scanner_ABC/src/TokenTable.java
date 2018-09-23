@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import javax.swing.JTable;
+import static jdk.nashorn.internal.objects.NativeString.toUpperCase;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -56,27 +57,75 @@ public class TokenTable {
                 t2 = tokens.get(j);
                 
                 // si se repite en la misma linea
-                if ((t2.getLine() == line)&& (t2.getLexema().equals(t1.getLexema()))) {
+                if ((t2.getLine() == line)&& (toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema()))) && !(t1.equals(t2)) ) {
                     
-                    if (!lexemas.contains(t2.getLexema())) {
-                        lexemas.add(t2.getLexema());
-                    }
+                    
                     
                     t1.addOccurrence();
-                }               
+                }
+                if (!lexemas.contains(t2.getLexema())) {
+                        lexemas.add(t2.getLexema());
+                    }
             }            
         }
     }
     
-    private void createTable() {
+    //CAMBIAR A PRIVADO
+    public void createTable() {
+        
+        this.addAllLineOccurrences();
+        
+        String lexema,type,occrr;
+        occrr = " ";
+        type = " ";
+        lexema = " ";
+        Token t1,t2;
+        
         for (int token = 0; token < lexemas.size(); token ++) {
             
+            for (int i = 0; i < this.tokens.size(); i++) {
+            
+                //token el cual se esta analizando
+                t1 = tokens.get(i);
+                
+                // se obtiene el lexema
+                lexema = t1.getLexema();
+                
+                //se obtienen la linea
+                occrr = Integer.toString(t1.getLine());
+                
+                //si tiene mas de una ocurrencia encontrado en la funcion previa
+                // se agrega a occrr
+                if (t1.occurrences > 0) {
+                    occrr += "(" + t1.occurrences + ")";
+                }
+                
+                // busca las repeticiones de ese mismo token
+                for (int j = 0; j < this.tokens.size(); j++) {
+
+                    t2 = tokens.get(j);
+
+                    // si el lexema es igual y estan en la misma linea, remueve la repeticion
+                    
+                    if ((t2.getLine() == t1.getLine())&& (toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema())))) {
+                        this.tokens.remove(t2);
+                    } 
+                    // si es el mismo lexema pero no en la misma linea, lo agrega al string de repeticiones
+                    else if (!(t2.getLine() == t1.getLine()) && (toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema())))){
+                        occrr += "," + t2.getLine();
+                    }              
+                } 
+            
+            }
+            // recorre la lista de toknes
+            
+            
             // lexema
-            data[token][1] = " ";
+            data[token][1] = lexema;
             // tipo de token (type)
-            data[token][2] = " ";
+            data[token][2] = "";
             // apareiciones en las lineas
-            data[token][3] = " ";
+            data[token][3] = occrr;
             
         }
         

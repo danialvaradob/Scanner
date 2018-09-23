@@ -24,7 +24,7 @@ public class Scanner {
     public static void main(String [ ] args){
 
         try{
-            File file = new File("src/errores.txt");
+            File file = new File("src/test_1.txt");
             String path = file.getAbsolutePath();
            // Path p = Paths.get("prueba.txt");
             //Path folder = p.getParent();
@@ -42,13 +42,17 @@ public class Scanner {
                 Token token = analizadorJFlex.yylex();
                 
                 // Agrega el Token a la tabla de Tokens
-                table.addToken(token);
-                
+                if (!(token == null)) {
+                    table.addToken(token);
+                }
                 if (!analizadorJFlex.existenTokens())
                 break;
 
                 System.out.println(token.toString());
             }
+            
+            table.createTable();
+            
         }catch (Exception e){
             System.out.println(e.toString());
         }
