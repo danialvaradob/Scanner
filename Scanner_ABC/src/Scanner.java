@@ -21,6 +21,7 @@ public class Scanner {
     // objeto tabla de tokens
     public static TokenTable table = new TokenTable();
     
+    
     public static void main(String [ ] args){
 
         try{

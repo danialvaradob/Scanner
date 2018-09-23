@@ -31,6 +31,7 @@ public class TokenTable {
     private JTable tokensTable;
     
 
+
     public TokenTable() {}
     
     
@@ -148,6 +149,8 @@ public class TokenTable {
         ArrayList<String> usedLexemas = new ArrayList<>();
         
         
+        data = new String[lexemas.size()][3];
+        
         for (int token = 0; token < lexemas.size(); token ++) {
             
             for (int i = 0; i < this.noRepeatedTokens.size(); i++) {
@@ -162,36 +165,38 @@ public class TokenTable {
                 type = t1.getToken().toString();    
                 //si tiene mas de una ocurrencia encontrado en la funcion previa
                 // se agrega a occrr
-                if (t1.occurrences > 0) {
+                if (t1.occurrences > 1) {
                     occrr += "(" + t1.occurrences + ")";
                 }
                 if (!usedLexemas.contains(lexema)) {
                     usedLexemas.add(lexema);
                     // busca las repeticiones de ese mismo token
                     for (int j = 0; j < this.noRepeatedTokens.size(); j++) {
-
                         t2 = noRepeatedTokens.get(j);
-
-                        // si el lexema es igual y estan en la misma linea, remueve la repeticion
-
-
                         // si es el mismo lexema pero no en la misma linea, lo agrega al string de repeticiones
                         if (!(t2.equals(t1)) &&  (toUpperCase(t1.getLexema()).equals(toUpperCase(t2.getLexema())))){
                             occrr += "," + t2.getLine();
+                            if (t2.occurrences > 1) {
+                                occrr += "(" + t2.occurrences + ")";
+                            }
                         }              
                     }
                     String prueba = "prueba";
-                   // lexema
-                   data[token][1] = lexema;
-                   // tipo de token (type)
-                   data[token][2] = type;
-                   // apareiciones en las lineas
-                   data[token][3] = occrr;
+                  
  
                 }
-            }  
+            }
+             // lexema
+                   data[token][0] = lexema;
+                   // tipo de token (type)
+                   data[token][1] = type;
+                   // apareiciones en las lineas
+                   data[token][2] = occrr;
+            
         }
         tokensTable = new JTable(data, columnNames);
+        TextTable tt = new TextTable(columnNames, data);                                                         
+        tt.printTable(); 
 
     }
     
@@ -220,7 +225,7 @@ Object[][] data = {
     
     public void printTable() throws PrinterException {
         createTable();
-        this.tokensTable.print();
+        System.out.print( this.tokensTable.toString());
     }
     
 }
