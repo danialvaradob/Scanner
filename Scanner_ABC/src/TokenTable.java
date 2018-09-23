@@ -1,4 +1,5 @@
 
+import java.awt.print.PrinterException;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import static jdk.nashorn.internal.objects.NativeString.toLowerCase;
@@ -150,31 +151,20 @@ public class TokenTable {
         for (int token = 0; token < lexemas.size(); token ++) {
             
             for (int i = 0; i < this.noRepeatedTokens.size(); i++) {
-            
                 //token el cual se esta analizando
                 t1 = noRepeatedTokens.get(i);
-                
                 // se obtiene el lexema
                 lexema = toLowerCase(t1.getLexema());
-                
-                
-                
+    
                 //se obtienen la linea
                 occrr = Integer.toString(t1.getLine());
-                
-                
                 //obtiene el tipo
-                type = t1.getToken().toString();
-                
-                
+                type = t1.getToken().toString();    
                 //si tiene mas de una ocurrencia encontrado en la funcion previa
                 // se agrega a occrr
                 if (t1.occurrences > 0) {
                     occrr += "(" + t1.occurrences + ")";
                 }
-                
-                
-
                 if (!usedLexemas.contains(lexema)) {
                     usedLexemas.add(lexema);
                     // busca las repeticiones de ese mismo token
@@ -190,30 +180,19 @@ public class TokenTable {
                             occrr += "," + t2.getLine();
                         }              
                     }
-                    // lexema
-            data[token][1] = lexema;
-            // tipo de token (type)
-            data[token][2] = type;
-            // apareiciones en las lineas
-            data[token][3] = occrr;
-            
-                    
-                    
+                    String prueba = "prueba";
+                   // lexema
+                   data[token][1] = lexema;
+                   // tipo de token (type)
+                   data[token][2] = type;
+                   // apareiciones en las lineas
+                   data[token][3] = occrr;
+ 
                 }
-                
-                
-            
-            }
-            // recorre la lista de toknes
-            
-            
-            
+            }  
         }
-        
         tokensTable = new JTable(data, columnNames);
-        
-        
-        
+
     }
     
     /*
@@ -239,8 +218,9 @@ Object[][] data = {
     */
     
     
-    public void printTable() {
+    public void printTable() throws PrinterException {
         createTable();
+        this.tokensTable.print();
     }
     
 }

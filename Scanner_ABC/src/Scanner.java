@@ -52,7 +52,8 @@ public class Scanner {
                 System.out.println(token.toString());
             }
             
-            table.createTable();
+            
+            table.printTable();
             
         }catch (Exception e){
             System.out.println(e.toString());
