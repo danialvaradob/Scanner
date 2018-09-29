@@ -11,7 +11,7 @@ lineas"
 
 
 
-"ljhgsdkjaghsdf ;  //String sin cerrar
+
 
 
 
@@ -23,12 +23,8 @@ lineas"
 
 
 
-123
-324
-+304  //separar el operdor del numero
-
-
 -989  //separar el operdor del numero
++567
 
 
 
